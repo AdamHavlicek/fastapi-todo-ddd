@@ -1,0 +1,50 @@
+version: '3.8'
+
+volumes:
+  databaseVolume:
+
+services:
+  database:
+    image: postgres:alpine
+    restart: on-failure
+
+    healthcheck:
+      test: ['CMD', 'pg_isready -U postgres']
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST: ${DB_HOST}
+      POSTGRES_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+
+    volumes:
+      - databaseVolume:/var/lib/postgresql
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh:ro
+
+  app:
+    build:
+      context: .
+      target: build
+
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+
+    ports:
+      - '${PORT}:80'
+
+    volumes:
+      - ./app:/opt/project/app
+
+    command: "uvicorn app.main:app --host 0.0.0.0 --port 80"
