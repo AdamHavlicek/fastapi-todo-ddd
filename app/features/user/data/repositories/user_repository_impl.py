@@ -5,7 +5,7 @@ from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
 from app.features.user.domain.entities.user_entity import UserEntity
-from app.features.user.data.models.user_model import UserModel
+from app.features.user.data.models.user import User
 from app.features.user.domain.repositories.user_repository import UserRepository
 
 
@@ -18,17 +18,17 @@ class UserRepositoryImpl(UserRepository):
         self.session: Session = session
 
     def find_by_email(self, email: int) -> UserEntity | None:
-        statement = select(UserModel).filter_by(email=email)
+        statement = select(User).filter_by(email=email)
 
         try:
-            result: Sequence[UserModel] = self.session.execute(statement).one()
+            result: User = self.session.execute(statement).scalar_one()
         except NoResultFound:
             return None
 
-        return result[0].to_entity()
+        return result.to_entity()
 
     def create(self, entity: UserEntity) -> UserEntity | None:
-        user = UserModel.from_entity(entity)
+        user = User.from_entity(entity)
 
         self.session.add(user)
 
@@ -36,38 +36,36 @@ class UserRepositoryImpl(UserRepository):
 
     def findall(self) -> Sequence[UserEntity]:
         # TODO: add offset and limit
-        statement = select(UserModel)
+        statement = select(User)
 
         try:
-            result: Sequence[UserModel] = self.session.execute(statement).one()
+            result: Sequence[User] = self.session.execute(statement).scalar_one()
         except NoResultFound:
             return []
 
         return [user.to_entity() for user in result]
 
     def find_by_id(self, id_: int) -> UserEntity | None:
-        statement = select(UserModel).filter_by(id_=id_)
-
         try:
-            result: Sequence[UserModel] = self.session.execute(statement).one()
+            result = self.session.get(User, id_)
         except NoResultFound:
             return None
 
-        return result[0].to_entity()
+        return result.to_entity()
 
     def update(self, entity: UserEntity) -> UserEntity | None:
-        user = UserModel.from_entity(entity)
-        statement = select(UserModel).filter_by(id_=user.id_)
+        user = User.from_entity(entity)
+        statement = select(User).filter_by(id_=user.id_)
 
         try:
-            result: UserModel = self.session.execute(statement).one()
+            result: User = self.session.execute(statement).scalar_one()
         except NoResultFound:
             return None
 
         # TODO: update user
 
     def delete_by_id(self, id_: int) -> UserEntity | None:
-        statement = select(UserModel).filter_by(id_=id_)
+        statement = select(User).filter_by(id_=id_)
 
-        result = self.session.execute(statement).one()
+        result: User = self.session.execute(statement).scalar_one()
         # TODO: set is_deleted and persist

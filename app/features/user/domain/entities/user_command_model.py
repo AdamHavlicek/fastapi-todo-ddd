@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from app.features.user.domain.usecases.user_common_model import UserBaseModel
+from app.features.user.domain.entities.user_common_model import UserBaseModel
 
 
 class UserCreateModel(UserBaseModel):

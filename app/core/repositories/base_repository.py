@@ -4,7 +4,7 @@ from typing import TypeVar, Sequence, Generic
 T = TypeVar('T')
 
 
-class AbstractRepository(ABC, Generic[T]):
+class BaseRepository(ABC, Generic[T]):
     """
         Abstract generic Repository
     """

@@ -1,11 +1,13 @@
 from sqlalchemy.orm import Session
 
 from app.features.user.domain.repositories.user_repository import UserRepository
-from app.features.user.domain.usecases.user_command_unit_of_work import UserCommandUnitOfWork
+from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWork
 
 
-class UserCommandUnitOfWorkImpl(UserCommandUnitOfWork):
-    """"""
+class UserUnitOfWorkImpl(UserUnitOfWork):
+    """
+
+    """
 
     def __init__(self, session: Session, user_repository: UserRepository):
         self.session: Session = session

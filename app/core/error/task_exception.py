@@ -1,17 +1,16 @@
 """
-    User exceptions
+    Task Exceptions
 """
 from app.core.error.base_exception import BaseError
 
 
-class UserNotFoundError(BaseError):
+class TaskNotFoundError(BaseError):
     message = 'User does not exist.'
 
 
-class UsersNotFoundError(BaseError):
+class TasksNotFoundError(BaseError):
     message = 'Users do not exist'
 
 
-class UserAlreadyExistsError(BaseError):
+class TaskAlreadyExistsError(BaseError):
     message = 'User already exists'
-

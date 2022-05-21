@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from app.models import Base
 
 
-class TaskModel(Base):
+class Task(Base):
     """
         Task DTO is an object associated with user entity
     """
@@ -14,4 +14,4 @@ class TaskModel(Base):
     is_completed: Column | bool = Column(Boolean, default=False)
     owner_id: Column | int = Column(Integer, ForeignKey('users.id_'))
 
-    owner = relationship('UserModel', back_populates='tasks')
+    owner = relationship('User', back_populates='tasks')

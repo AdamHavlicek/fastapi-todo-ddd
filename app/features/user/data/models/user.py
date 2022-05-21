@@ -1,12 +1,12 @@
 from sqlalchemy import Column, Boolean, String
 from sqlalchemy.orm import relationship
 
-from app.features.user.domain.usecases.user_query_model import UserReadModel
+from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.models import Base
 from app.features.user.domain.entities.user_entity import UserEntity
 
 
-class UserModel(Base):
+class User(Base):
     """
         User DTO is an object associated with user entity
     """
@@ -16,7 +16,7 @@ class UserModel(Base):
     password: str | Column = Column(String)
     is_active: bool | Column = Column(Boolean, default=True)
 
-    tasks = relationship('TaskModel', back_populates='owner')
+    tasks = relationship('Task', back_populates='owner')
 
     def to_entity(self) -> UserEntity:
         return UserEntity(
@@ -42,8 +42,8 @@ class UserModel(Base):
         )
 
     @staticmethod
-    def from_entity(user: UserEntity) -> 'UserModel':
-        return UserModel(
+    def from_entity(user: UserEntity) -> 'User':
+        return User(
             email=user.email,
             password=user.password,
             is_active=user.is_active,
