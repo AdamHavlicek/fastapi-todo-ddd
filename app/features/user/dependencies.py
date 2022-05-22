@@ -12,7 +12,7 @@ from app.features.user.domain.usecases.delete_user import DeleteUserUseCase, Del
 from app.features.user.domain.usecases.get_user import GetUserUseCase, GetUserUseCaseImpl
 from app.features.user.domain.usecases.get_users import GetUsersUseCaseImpl, GetUsersUseCase
 from app.features.user.domain.usecases.update_user import UpdateUserUseCase, UpdateUserUseCaseImpl
-from app.infrastructure.database.postgres.database import get_session
+from core.database.postgres import get_session
 
 
 def get_user_query_service(session: Session = Depends(get_session)) -> UserQueryService:

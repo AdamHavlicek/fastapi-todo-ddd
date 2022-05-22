@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from app.models import Base
+from core.models.postgres.models import Base
 from features.task.domain.entities.task_entity import TaskEntity
 from features.task.domain.entities.task_query_model import TaskReadModel
 

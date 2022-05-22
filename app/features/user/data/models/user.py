@@ -2,7 +2,7 @@ from sqlalchemy import Column, Boolean, String
 from sqlalchemy.orm import relationship
 
 from app.features.user.domain.entities.user_query_model import UserReadModel
-from app.models import Base
+from core.models.postgres.models import Base
 from app.features.user.domain.entities.user_entity import UserEntity
 
 

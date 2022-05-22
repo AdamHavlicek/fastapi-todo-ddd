@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app import models
-from app.infrastructure.database.postgres.database import engine
+from core.models.postgres import models
+from core.database.postgres import engine
 from app.features.task.presentation.routes.task_routes import task_router
 from app.features.user.presentation.routes.user_routes import user_router
 
