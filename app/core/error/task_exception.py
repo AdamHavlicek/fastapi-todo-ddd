@@ -5,12 +5,12 @@ from app.core.error.base_exception import BaseError
 
 
 class TaskNotFoundError(BaseError):
-    message = 'User does not exist.'
+    message = 'Task does not exist.'
 
 
 class TasksNotFoundError(BaseError):
-    message = 'Users do not exist'
+    message = 'Tasks do not exist'
 
 
 class TaskAlreadyExistsError(BaseError):
-    message = 'User already exists'
+    message = 'Task already exists'

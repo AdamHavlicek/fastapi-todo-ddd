@@ -1,11 +1,10 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import cast
 
-from app.features.user.domain.entities.user_entity import UserEntity
-from app.features.user.domain.entities.user_command_model import UserCreateModel, UserUpdateModel
-from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWork
-from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.core.error.user_exception import UserNotFoundError
+from app.features.user.domain.entities.user_entity import UserEntity
+from app.features.user.domain.entities.user_query_model import UserReadModel
+from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWork
 from core.user_cases.use_case import BaseUseCase
 
 
@@ -13,6 +12,7 @@ class DeleteUserUseCase(BaseUseCase):
     """
         UserCommandUseCase defines a command use case interface related User entity
     """
+
     def __init__(self, unit_of_work: UserUnitOfWork):
         self.unit_of_work: UserUnitOfWork = unit_of_work
 

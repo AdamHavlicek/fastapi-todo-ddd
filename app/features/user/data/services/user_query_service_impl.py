@@ -18,10 +18,8 @@ class UserQueryServiceImpl(UserQueryService):
         self.session: Session = session
 
     def find_by_id(self, id_: int) -> UserReadModel | None:
-        statement = select(User).filter_by(id_=id_)
-
         try:
-            result: User = self.session.execute(statement).scalars().one()
+            result: User = self.session.get(User, id_).scalar_one()
         except NoResultFound:
             return None
 

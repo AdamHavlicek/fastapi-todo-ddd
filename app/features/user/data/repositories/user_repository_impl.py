@@ -39,7 +39,7 @@ class UserRepositoryImpl(UserRepository):
         statement = select(User)
 
         try:
-            result: Sequence[User] = self.session.execute(statement).scalar_one()
+            result: Sequence[User] = self.session.execute(statement).scalars().all()
         except NoResultFound:
             return []
 
@@ -47,7 +47,7 @@ class UserRepositoryImpl(UserRepository):
 
     def find_by_id(self, id_: int) -> UserEntity | None:
         try:
-            result = self.session.get(User, id_)
+            result = self.session.get(User, id_).scalar_one()
         except NoResultFound:
             return None
 
@@ -55,17 +55,17 @@ class UserRepositoryImpl(UserRepository):
 
     def update(self, entity: UserEntity) -> UserEntity | None:
         user = User.from_entity(entity)
-        statement = select(User).filter_by(id_=user.id_)
 
         try:
-            result: User = self.session.execute(statement).scalar_one()
+            result = self.session.get(User, user.id_).scalar_one()
         except NoResultFound:
             return None
 
         # TODO: update user
 
     def delete_by_id(self, id_: int) -> UserEntity | None:
-        statement = select(User).filter_by(id_=id_)
-
-        result: User = self.session.execute(statement).scalar_one()
+        try:
+            result = self.session.get(User, id_).scalar_one()
+        except NoResultFound:
+            return None
         # TODO: set is_deleted and persist

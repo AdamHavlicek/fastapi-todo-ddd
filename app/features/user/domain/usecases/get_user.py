@@ -30,7 +30,7 @@ class GetUserUseCaseImpl(GetUserUseCase):
         try:
             user = self.service.find_by_id(id_)
             if user is None:
-                raise UserNotFoundError
+                raise UserNotFoundError()
         except Exception:
             raise
 
