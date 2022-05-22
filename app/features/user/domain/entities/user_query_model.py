@@ -18,7 +18,7 @@ class UserReadModel(UserBaseModel):
     is_deleted: bool = Field(example=True)
     created_at: datetime
     updated_at: datetime
-    # TODO: add tasks field
+    tasks: list[int]
 
     class Config:
         orm_mode = True
@@ -32,5 +32,6 @@ class UserReadModel(UserBaseModel):
             is_active=entity.is_active,
             is_deleted=entity.is_deleted,
             created_at=entity.created_at,
-            updated_at=entity.updated_at
+            updated_at=entity.updated_at,
+            tasks=entity.tasks
         )

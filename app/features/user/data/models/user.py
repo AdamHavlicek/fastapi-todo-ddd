@@ -38,7 +38,8 @@ class User(Base):
             is_active=self.is_active,
             is_deleted=self.is_deleted,
             created_at=self.created_at,
-            updated_at=self.updated_at
+            updated_at=self.updated_at,
+            tasks=[task.id_ for task in self.tasks]
         )
 
     @staticmethod
