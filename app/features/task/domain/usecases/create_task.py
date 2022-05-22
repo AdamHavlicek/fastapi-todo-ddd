@@ -29,11 +29,13 @@ class CreateTaskUseCaseImpl(CreateTaskUseCase):
         )
 
         try:
-            created_task = self.unit_of_work.repository.create(task)
+            self.unit_of_work.repository.create(task)
         except Exception as _e:
             self.unit_of_work.rollback()
             raise
 
         self.unit_of_work.commit()
+
+        created_task = self.unit_of_work.repository.find_by_owner_id(task.owner_id)[0]
 
         return TaskReadModel.from_entity(created_task)

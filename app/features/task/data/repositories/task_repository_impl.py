@@ -14,6 +14,17 @@ class TaskRepositoryImpl(TaskRepository):
     def __init__(self, session: Session):
         self.session: Session = session
 
+    def find_by_owner_id(self, owner_id: int) -> Sequence[TaskEntity]:
+        statement = select(Task).filter_by(owner_id=owner_id).order_by(Task.created_at.desc())
+
+        try:
+            result: Sequence[Task] = self.session.execute(statement).scalars().all()
+        except NoResultFound:
+            return []
+
+        return [task.to_entity() for task in result]
+
+
     def create(self, entity: TaskEntity) -> TaskEntity | None:
         task = Task.from_entity(entity)
 
@@ -34,7 +45,7 @@ class TaskRepositoryImpl(TaskRepository):
 
     def find_by_id(self, id_: int) -> TaskEntity | None:
         try:
-            result = self.session.get(Task, id_).scalar_one()
+            result = self.session.get(Task, id_)
         except NoResultFound:
             return None
 
@@ -44,7 +55,7 @@ class TaskRepositoryImpl(TaskRepository):
         task = Task.from_entity(entity)
 
         try:
-            result = self.session.get(Task, task.id_).scalar_one()
+            result = self.session.get(Task, task.id_)
         except NoResultFound:
             return None
 
@@ -52,7 +63,7 @@ class TaskRepositoryImpl(TaskRepository):
 
     def delete_by_id(self, id_: int) -> TaskEntity | None:
         try:
-            result = self.session.get(Task, id_).scalar_one()
+            result = self.session.get(Task, id_)
         except NoResultFound:
             return None
 

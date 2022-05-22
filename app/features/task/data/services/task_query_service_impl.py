@@ -15,9 +15,9 @@ class TaskQueryServiceImpl(TaskQueryService):
         self.session: Session = session
 
     def find_by_id(self, id_: int) -> TaskEntity | None:
-        try:
-            result: Task = self.session.get(Task, id_).scalar_one()
-        except NoResultFound:
+        result: Task = self.session.get(Task, id_)
+
+        if result is None:
             return None
 
         return result.to_entity()

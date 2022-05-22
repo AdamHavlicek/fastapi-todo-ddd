@@ -46,9 +46,9 @@ class UserRepositoryImpl(UserRepository):
         return [user.to_entity() for user in result]
 
     def find_by_id(self, id_: int) -> UserEntity | None:
-        try:
-            result = self.session.get(User, id_).scalar_one()
-        except NoResultFound:
+        result = self.session.get(User, id_)
+
+        if result is None:
             return None
 
         return result.to_entity()
@@ -56,16 +56,13 @@ class UserRepositoryImpl(UserRepository):
     def update(self, entity: UserEntity) -> UserEntity | None:
         user = User.from_entity(entity)
 
-        try:
-            result = self.session.get(User, user.id_).scalar_one()
-        except NoResultFound:
-            return None
+        result = self.session.get(User, user.id_)
 
         # TODO: update user
 
     def delete_by_id(self, id_: int) -> UserEntity | None:
-        try:
-            result = self.session.get(User, id_).scalar_one()
-        except NoResultFound:
+        result = self.session.get(User, id_)
+
+        if result is None:
             return None
         # TODO: set is_deleted and persist

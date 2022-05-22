@@ -1,5 +1,6 @@
 from fastapi import Depends, status, HTTPException
 
+from core.error.task_exception import TaskNotFoundError
 from features.task.dependencies import get_task_use_case
 from features.task.domain.entities.task_query_model import TaskReadModel
 from features.task.domain.usecases.get_task import GetTaskUseCase
@@ -22,15 +23,14 @@ def get_task(
     get_task_use_case_: GetTaskUseCase = Depends(get_task_use_case)
 ):
     try:
-        user = get_task_use_case_(id_)
+        task = get_task_use_case_(id_)
+    except TaskNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND
+        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND
-        )
-
-    return user
+    return task
