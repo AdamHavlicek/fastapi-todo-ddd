@@ -1,12 +1,12 @@
 from fastapi import Depends, HTTPException, status
 
-from core.error.user_exception import UserAlreadyExistsError
-from features.user.dependencies import get_create_user_use_case
-from features.user.domain.entities.user_command_model import UserCreateModel
-from features.user.domain.entities.user_query_model import UserReadModel
-from features.user.domain.usecases.create_user import CreateUserUseCase
-from features.user.presentation.routes import router
-from features.user.presentation.schemas.user_error_message import ErrorMessageUserAlreadyExists
+from app.core.error.user_exception import UserAlreadyExistsError
+from app.features.user.dependencies import get_create_user_use_case
+from app.features.user.domain.entities.user_command_model import UserCreateModel
+from app.features.user.domain.entities.user_query_model import UserReadModel
+from app.features.user.domain.usecases.create_user import CreateUserUseCase
+from app.features.user.presentation.routes import router
+from app.features.user.presentation.schemas.user_error_message import ErrorMessageUserAlreadyExists
 
 
 @router.post(

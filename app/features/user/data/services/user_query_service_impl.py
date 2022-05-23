@@ -1,7 +1,6 @@
 from typing import Sequence
 
 from sqlalchemy import select
-from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
 from app.features.user.data.models.user import User

@@ -1,11 +1,11 @@
 
 from fastapi import Depends, HTTPException, status
 
-from features.user.dependencies import get_user_use_case
-from features.user.domain.entities.user_query_model import UserReadModel
-from features.user.domain.usecases.get_user import GetUserUseCase
-from features.user.presentation.routes import router
-from features.user.presentation.schemas.user_error_message import ErrorMessageUserNotFound
+from app.features.user.dependencies import get_user_use_case
+from app.features.user.domain.entities.user_query_model import UserReadModel
+from app.features.user.domain.usecases.get_user import GetUserUseCase
+from app.features.user.presentation.routes import router
+from app.features.user.presentation.schemas.user_error_message import ErrorMessageUserNotFound
 
 
 @router.get(

@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from features.task.domain.entities.task_common_model import TaskBaseModel
+from app.features.task.domain.entities.task_common_model import TaskBaseModel
 
 
 class TaskCreateModel(TaskBaseModel):

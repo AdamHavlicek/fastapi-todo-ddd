@@ -1,11 +1,11 @@
 from abc import abstractmethod
 from typing import cast
 
-from core.error.task_exception import TaskNotFoundError
-from core.user_cases.use_case import BaseUseCase
-from features.task.domain.entities.task_entity import TaskEntity
-from features.task.domain.entities.task_query_model import TaskReadModel
-from features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
+from app.core.error.task_exception import TaskNotFoundError
+from app.core.user_cases.use_case import BaseUseCase
+from app.features.task.domain.entities.task_entity import TaskEntity
+from app.features.task.domain.entities.task_query_model import TaskReadModel
+from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
 
 
 class DeleteTaskUseCase(BaseUseCase):

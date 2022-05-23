@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from features.task.domain.repositories.task_repository import TaskRepository
-from features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
+from app.features.task.domain.repositories.task_repository import TaskRepository
+from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
 
 
 class TaskUnitOfWorkImpl(TaskUnitOfWork):

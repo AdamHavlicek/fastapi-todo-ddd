@@ -1,18 +1,18 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from features.task.data.repositories.task_repository_impl import TaskRepositoryImpl
-from features.task.data.repositories.task_unit_of_work_impl import TaskUnitOfWorkImpl
-from features.task.data.services.task_query_service_impl import TaskQueryServiceImpl
-from features.task.domain.repositories.task_repository import TaskRepository
-from features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
-from features.task.domain.services.task_query_service import TaskQueryService
-from features.task.domain.usecases.create_task import CreateTaskUseCase, CreateTaskUseCaseImpl
-from features.task.domain.usecases.delete_task import DeleteTaskUseCase, DeleteTaskUseCaseImpl
-from features.task.domain.usecases.get_task import GetTaskUseCase, GetTaskUseCaseImpl
-from features.task.domain.usecases.get_tasks import GetTasksUseCase, GetTasksUseCaseImpl
-from features.task.domain.usecases.update_task import UpdateTaskUseCase, UpdateTaskUseCaseImpl
-from core.database.postgres import get_session
+from app.features.task.data.repositories.task_repository_impl import TaskRepositoryImpl
+from app.features.task.data.repositories.task_unit_of_work_impl import TaskUnitOfWorkImpl
+from app.features.task.data.services.task_query_service_impl import TaskQueryServiceImpl
+from app.features.task.domain.repositories.task_repository import TaskRepository
+from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
+from app.features.task.domain.services.task_query_service import TaskQueryService
+from app.features.task.domain.usecases.create_task import CreateTaskUseCase, CreateTaskUseCaseImpl
+from app.features.task.domain.usecases.delete_task import DeleteTaskUseCase, DeleteTaskUseCaseImpl
+from app.features.task.domain.usecases.get_task import GetTaskUseCase, GetTaskUseCaseImpl
+from app.features.task.domain.usecases.get_tasks import GetTasksUseCase, GetTasksUseCaseImpl
+from app.features.task.domain.usecases.update_task import UpdateTaskUseCase, UpdateTaskUseCaseImpl
+from app.core.database.postgres.database import get_session
 
 
 def get_task_query_service(

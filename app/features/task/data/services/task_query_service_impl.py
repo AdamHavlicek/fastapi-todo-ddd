@@ -1,12 +1,11 @@
 from typing import Sequence
 
 from sqlalchemy import select
-from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
-from features.task.data.models.task import Task
-from features.task.domain.entities.task_entity import TaskEntity
-from features.task.domain.services.task_query_service import TaskQueryService
+from app.features.task.data.models.task import Task
+from app.features.task.domain.entities.task_entity import TaskEntity
+from app.features.task.domain.services.task_query_service import TaskQueryService
 
 
 class TaskQueryServiceImpl(TaskQueryService):

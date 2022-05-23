@@ -1,10 +1,10 @@
 from fastapi import status, Depends, HTTPException
 
-from features.task.dependencies import get_create_task_use_case
-from features.task.domain.entities.task_command_model import TaskCreateModel
-from features.task.domain.entities.task_query_model import TaskReadModel
-from features.task.domain.usecases.create_task import CreateTaskUseCase
-from features.task.presentation.routes import router
+from app.features.task.dependencies import get_create_task_use_case
+from app.features.task.domain.entities.task_command_model import TaskCreateModel
+from app.features.task.domain.entities.task_query_model import TaskReadModel
+from app.features.task.domain.usecases.create_task import CreateTaskUseCase
+from app.features.task.presentation.routes import router
 
 
 @router.post(

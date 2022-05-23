@@ -1,11 +1,11 @@
 from fastapi import HTTPException, Depends, status
 
-from core.error.task_exception import TaskNotFoundError
-from features.task.dependencies import get_delete_task_use_case
-from features.task.domain.entities.task_query_model import TaskReadModel
-from features.task.domain.usecases.delete_task import DeleteTaskUseCase
-from features.task.presentation.routes import router
-from features.task.presentation.schemas.task_error_message import ErrorMessageTaskNotFound
+from app.core.error.task_exception import TaskNotFoundError
+from app.features.task.dependencies import get_delete_task_use_case
+from app.features.task.domain.entities.task_query_model import TaskReadModel
+from app.features.task.domain.usecases.delete_task import DeleteTaskUseCase
+from app.features.task.presentation.routes import router
+from app.features.task.presentation.schemas.task_error_message import ErrorMessageTaskNotFound
 
 
 @router.delete(

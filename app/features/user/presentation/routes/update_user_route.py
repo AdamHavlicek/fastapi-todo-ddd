@@ -1,12 +1,12 @@
 from fastapi import Depends, HTTPException, status
 
-from core.error.user_exception import UserNotFoundError
-from features.user.dependencies import get_update_user_use_case
-from features.user.domain.entities.user_command_model import UserUpdateModel
-from features.user.domain.entities.user_query_model import UserReadModel
-from features.user.domain.usecases.update_user import UpdateUserUseCase
-from features.user.presentation.routes import router
-from features.user.presentation.schemas.user_error_message import ErrorMessageUserNotFound
+from app.core.error.user_exception import UserNotFoundError
+from app.features.user.dependencies import get_update_user_use_case
+from app.features.user.domain.entities.user_command_model import UserUpdateModel
+from app.features.user.domain.entities.user_query_model import UserReadModel
+from app.features.user.domain.usecases.update_user import UpdateUserUseCase
+from app.features.user.presentation.routes import router
+from app.features.user.presentation.schemas.user_error_message import ErrorMessageUserNotFound
 
 
 @router.put(

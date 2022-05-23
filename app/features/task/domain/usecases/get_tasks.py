@@ -1,9 +1,9 @@
 from abc import abstractmethod
 from typing import Sequence
 
-from core.user_cases.use_case import BaseUseCase
-from features.task.domain.entities.task_query_model import TaskReadModel
-from features.task.domain.services.task_query_service import TaskQueryService
+from app.core.user_cases.use_case import BaseUseCase
+from app.features.task.domain.entities.task_query_model import TaskReadModel
+from app.features.task.domain.services.task_query_service import TaskQueryService
 
 
 class GetTasksUseCase(BaseUseCase):

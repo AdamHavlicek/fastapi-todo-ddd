@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from core.error.task_exception import TaskNotFoundError, TasksNotFoundError
+from app.core.error.task_exception import TaskNotFoundError, TasksNotFoundError
 
 
 class ErrorMessageTaskNotFound(BaseModel):
