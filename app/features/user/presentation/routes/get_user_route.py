@@ -1,6 +1,7 @@
 
 from fastapi import Depends, HTTPException, status
 
+from app.core.error.user_exception import UserNotFoundError
 from app.features.user.dependencies import get_user_use_case
 from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.features.user.domain.usecases.get_user import GetUserUseCase
@@ -24,14 +25,13 @@ def get_user(
 ) -> UserReadModel:
     try:
         user = get_user_use_case_(id_)
+    except UserNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND
+        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
-
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND
         )
 
     return user

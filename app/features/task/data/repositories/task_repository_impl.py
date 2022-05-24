@@ -24,7 +24,6 @@ class TaskRepositoryImpl(TaskRepository):
 
         return [task.to_entity() for task in result]
 
-
     def create(self, entity: TaskEntity) -> TaskEntity | None:
         task = Task.from_entity(entity)
 
