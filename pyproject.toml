@@ -1,0 +1,23 @@
+[tool.poetry]
+name = 'todofastapi'
+version = '0.1.0'
+description = 'To-Do FastApi example app'
+authors = ['Adam Havlíček <>']
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = '^1.4.36'
+pydantic = '^1.9.1'
+fastapi = '^0.78.0'
+psycopg2 = '^2.9.3'
+uvicorn = { extras = ['standard'], version = '^0.17.6'}
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+mypy = "^0.950"
+pytest = "^7.1.2"
+pylint = "^2.13.9"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"

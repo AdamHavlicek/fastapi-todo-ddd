@@ -42,6 +42,7 @@ services:
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      POETRY_CACHE_DIR: '/tmp/'
 
     ports:
       - '${PORT}:80'
