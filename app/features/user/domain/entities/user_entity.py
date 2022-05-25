@@ -24,7 +24,7 @@ class UserEntity(object):
         self.created_at = created_at
         self.updated_at = updated_at
         self.is_deleted = is_deleted
-        self.tasks = [tasks, []][tasks is None]
+        self.tasks: list[int] = [] if tasks is None else tasks
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, UserEntity):

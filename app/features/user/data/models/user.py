@@ -1,9 +1,14 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import Column, Boolean, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
 
 from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.core.models.postgres.models import Base
 from app.features.user.domain.entities.user_entity import UserEntity
+
+if TYPE_CHECKING:
+    from app.features.task.data.models.task import Task
 
 
 class User(Base):
@@ -12,11 +17,11 @@ class User(Base):
     """
     __tablename__ = 'users'
 
-    email: str | Column = Column(String, unique=True, index=True)
-    password: str | Column = Column(String)
-    is_active: bool | Column = Column(Boolean, default=True)
+    email: Mapped[str] | str = Column(String, unique=True, index=True)
+    password: Mapped[str] | str = Column(String)
+    is_active: Mapped[bool] | bool | None = Column(Boolean, default=True)
 
-    tasks = relationship('Task', back_populates='owner')
+    tasks: Mapped[list['Task']] = relationship('Task', back_populates='owner', uselist=True)
 
     def to_entity(self) -> UserEntity:
         return UserEntity(

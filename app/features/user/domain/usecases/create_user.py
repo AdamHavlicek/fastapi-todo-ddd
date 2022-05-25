@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import cast
 
 from app.core.error.user_exception import UserAlreadyExistsError
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 from app.features.user.domain.entities.user_command_model import UserCreateModel
 from app.features.user.domain.entities.user_entity import UserEntity
 from app.features.user.domain.entities.user_query_model import UserReadModel
@@ -11,7 +11,7 @@ from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWo
 
 class CreateUserUseCase(BaseUseCase):
 
-    unit_of_work: UserUnitOfWork = None
+    unit_of_work: UserUnitOfWork
 
     def __init__(self, unit_of_work: UserUnitOfWork):
         self.unit_of_work = unit_of_work

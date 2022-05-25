@@ -1,14 +1,14 @@
 from abc import abstractmethod
 from typing import Sequence
 
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 from app.features.task.domain.entities.task_query_model import TaskReadModel
 from app.features.task.domain.services.task_query_service import TaskQueryService
 
 
 class GetTasksUseCase(BaseUseCase):
 
-    service: TaskQueryService = None
+    service: TaskQueryService
 
     def __init__(self, service: TaskQueryService):
         self.service: TaskQueryService = service

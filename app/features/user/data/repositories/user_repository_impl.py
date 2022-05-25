@@ -17,7 +17,7 @@ class UserRepositoryImpl(UserRepository):
     def __init__(self, session: Session):
         self.session: Session = session
 
-    def find_by_email(self, email: int) -> UserEntity | None:
+    def find_by_email(self, email: str) -> UserEntity | None:
         statement = select(User).filter_by(email=email)
 
         try:

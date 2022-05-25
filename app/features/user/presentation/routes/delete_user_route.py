@@ -24,7 +24,7 @@ from app.features.user.presentation.schemas.user_error_message import ErrorMessa
 def delete_user(
     id_: int,
     delete_user_use_case: DeleteUserUseCase = Depends(get_delete_user_use_case)
-) -> UserReadModel:
+):
     try:
         user = delete_user_use_case(id_)
     except UserNotFoundError:

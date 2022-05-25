@@ -17,6 +17,7 @@ black = "^22.3.0"
 mypy = "^0.950"
 pytest = "^7.1.2"
 pylint = "^2.13.9"
+SQLAlchemy = {extras = ["mypy"], version = "^1.4.36"}
 
 [build-system]
 requires = ["poetry>=1.0.0"]

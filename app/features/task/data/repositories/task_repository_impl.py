@@ -43,9 +43,9 @@ class TaskRepositoryImpl(TaskRepository):
         return [task.to_entity() for task in result]
 
     def find_by_id(self, id_: int) -> TaskEntity | None:
-        try:
-            result = self.session.get(Task, id_)
-        except NoResultFound:
+        result = self.session.get(Task, id_)
+
+        if result is None:
             return None
 
         return result.to_entity()
@@ -58,6 +58,8 @@ class TaskRepositoryImpl(TaskRepository):
         except NoResultFound:
             return None
 
+        raise NotImplementedError()
+
         # TODO: update user
 
     def delete_by_id(self, id_: int) -> TaskEntity | None:
@@ -65,5 +67,7 @@ class TaskRepositoryImpl(TaskRepository):
             result = self.session.get(Task, id_)
         except NoResultFound:
             return None
+
+        raise NotImplementedError()
 
         # TODO: set is_deleted and persist

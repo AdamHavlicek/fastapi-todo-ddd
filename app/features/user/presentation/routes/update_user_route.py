@@ -23,7 +23,7 @@ async def update_user(
     id_: int,
     data: UserUpdateModel,
     update_user_use_case: UpdateUserUseCase = Depends(get_update_user_use_case)
-) -> UserReadModel:
+):
     try:
         user = update_user_use_case(id_, data)
     except UserNotFoundError:

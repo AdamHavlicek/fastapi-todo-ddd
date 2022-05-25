@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import cast
 
 from app.core.error.task_exception import TaskNotFoundError
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 from app.features.task.domain.entities.task_command_model import TaskUpdateModel
 from app.features.task.domain.entities.task_entity import TaskEntity
 from app.features.task.domain.entities.task_query_model import TaskReadModel

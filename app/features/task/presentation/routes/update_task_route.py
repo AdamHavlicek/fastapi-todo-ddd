@@ -23,7 +23,7 @@ async def update_task(
     id_: int,
     data: TaskUpdateModel,
     update_task_use_case: UpdateTaskUseCase = Depends(get_update_task_use_case)
-) -> TaskReadModel:
+):
     try:
         user = update_task_use_case(id_, data)
     except TaskNotFoundError:

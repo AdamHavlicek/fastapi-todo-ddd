@@ -5,13 +5,14 @@ from app.core.error.user_exception import UserNotFoundError
 from app.features.user.domain.entities.user_entity import UserEntity
 from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWork
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 
 
 class DeleteUserUseCase(BaseUseCase):
     """
         UserCommandUseCase defines a command use case interface related User entity
     """
+    unit_of_work: UserUnitOfWork
 
     def __init__(self, unit_of_work: UserUnitOfWork):
         self.unit_of_work: UserUnitOfWork = unit_of_work

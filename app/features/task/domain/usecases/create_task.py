@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 from app.features.task.domain.entities.task_command_model import TaskCreateModel
 from app.features.task.domain.entities.task_entity import TaskEntity
 from app.features.task.domain.entities.task_query_model import TaskReadModel
@@ -9,7 +9,7 @@ from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWo
 
 class CreateTaskUseCase(BaseUseCase):
 
-    unit_of_work: TaskUnitOfWork = None
+    unit_of_work: TaskUnitOfWork
 
     def __init__(self, unit_of_work: TaskUnitOfWork):
         self.unit_of_work = unit_of_work

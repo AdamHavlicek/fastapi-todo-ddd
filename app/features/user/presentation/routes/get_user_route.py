@@ -22,7 +22,7 @@ from app.features.user.presentation.schemas.user_error_message import ErrorMessa
 def get_user(
     id_: int,
     get_user_use_case_: GetUserUseCase = Depends(get_user_use_case)
-) -> UserReadModel:
+):
     try:
         user = get_user_use_case_(id_)
     except UserNotFoundError:

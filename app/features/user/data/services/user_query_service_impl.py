@@ -17,7 +17,7 @@ class UserQueryServiceImpl(UserQueryService):
         self.session: Session = session
 
     def find_by_id(self, id_: int) -> UserReadModel | None:
-        result: User = self.session.get(User, id_)
+        result = self.session.get(User, id_)
 
         if result is None:
             return None
@@ -29,8 +29,5 @@ class UserQueryServiceImpl(UserQueryService):
         statement = select(User)
 
         result = self.session.execute(statement).scalars().all()
-
-        if len(result) == 0:
-            return []
 
         return [user.to_read_model() for user in result]

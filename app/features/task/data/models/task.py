@@ -1,9 +1,14 @@
+from typing import TypeVar, TYPE_CHECKING
+
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
 
 from app.core.models.postgres.models import Base
 from app.features.task.domain.entities.task_entity import TaskEntity
 from app.features.task.domain.entities.task_query_model import TaskReadModel
+
+if TYPE_CHECKING:
+    from app.features.user.data.models.user import User
 
 
 class Task(Base):
@@ -12,11 +17,11 @@ class Task(Base):
     """
     __tablename__ = 'tasks'
 
-    title: Column | str = Column(String, index=True)
-    is_completed: Column | bool = Column(Boolean, default=False)
-    owner_id: Column | int = Column(Integer, ForeignKey('users.id_'))
+    title: Mapped[str] | str = Column(String, index=True)
+    is_completed: Mapped[bool] | bool | None = Column(Boolean, default=False)
+    owner_id: Mapped[int] | int = Column(Integer, ForeignKey('users.id_'))
 
-    owner = relationship('User', back_populates='tasks')
+    owner: Mapped['User'] = relationship('User', back_populates='tasks', uselist=False)
 
     def to_entity(self) -> TaskEntity:
         return TaskEntity(

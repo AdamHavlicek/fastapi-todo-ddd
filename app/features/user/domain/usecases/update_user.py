@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import cast
 
 from app.core.error.user_exception import UserNotFoundError
-from app.core.user_cases.use_case import BaseUseCase
+from app.core.use_cases.use_case import BaseUseCase
 from app.features.user.domain.entities.user_command_model import UserUpdateModel
 from app.features.user.domain.entities.user_entity import UserEntity
 from app.features.user.domain.entities.user_query_model import UserReadModel
