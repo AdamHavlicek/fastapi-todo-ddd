@@ -1,6 +1,6 @@
 POETRY=poetry
 PYTEST=$(POETRY) run pytest
-MYPY=$(POETRY) run mypy --ignore-missing-imports
+MYPY=$(POETRY) run mypy
 BLACK=$(POETRY) run black
 ISORT=$(POETRY) run isort
 PYLINT=$(POETRY) run pylint
@@ -20,11 +20,11 @@ test: install
 	$(PYTEST) -vv
 
 fmt:
-	$(ISORT) main.py ./${PACKAGE} ./tests
-	$(BLACK) main.py ./${PACKAGE} ./tests
+	$(ISORT) ./${PACKAGE} ./tests
+	$(BLACK) ./${PACKAGE} ./tests
 
 lint:
-	$(PYLINT) main.py ./${PACKAGE} ./tests
+	$(PYLINT) ./${PACKAGE} ./tests
 
 dev:
 	${UVICORN} main:app --reload
