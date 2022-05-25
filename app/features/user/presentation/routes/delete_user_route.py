@@ -26,7 +26,7 @@ def delete_user(
     delete_user_use_case: DeleteUserUseCase = Depends(get_delete_user_use_case)
 ):
     try:
-        user = delete_user_use_case(id_)
+        user = delete_user_use_case((id_, ))
     except UserNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND

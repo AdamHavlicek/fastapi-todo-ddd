@@ -6,12 +6,12 @@ from app.features.task.domain.entities.task_query_model import TaskReadModel
 from app.features.task.domain.services.task_query_service import TaskQueryService
 
 
-class GetTasksUseCase(BaseUseCase):
+class GetTasksUseCase(BaseUseCase[None, Sequence[TaskReadModel]]):
 
     service: TaskQueryService
 
     @abstractmethod
-    def __call__(self) -> Sequence[TaskReadModel]:
+    def __call__(self, args: None) -> Sequence[TaskReadModel]:
         raise NotImplementedError()
 
 
@@ -20,7 +20,7 @@ class GetTasksUseCaseImpl(GetTasksUseCase):
     def __init__(self, service: TaskQueryService):
         self.service: TaskQueryService = service
 
-    def __call__(self) -> Sequence[TaskReadModel]:
+    def __call__(self, args: None) -> Sequence[TaskReadModel]:
         try:
             tasks = self.service.findall()
         except Exception:

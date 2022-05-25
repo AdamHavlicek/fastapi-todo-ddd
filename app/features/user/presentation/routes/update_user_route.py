@@ -25,7 +25,7 @@ async def update_user(
     update_user_use_case: UpdateUserUseCase = Depends(get_update_user_use_case)
 ):
     try:
-        user = update_user_use_case(id_, data)
+        user = update_user_use_case((id_, data))
     except UserNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND

@@ -15,7 +15,7 @@ uvicorn = { extras = ['standard'], version = '^0.17.6' }
 [tool.poetry.dev-dependencies]
 toml = "^0.10.2"
 yapf = {version = "^0.32.0" }
-mypy = "^0.950"
+mypy = "^0.960"
 pycodestyle = "^2.8.0"
 pytest = "^7.1.2"
 pylint = "^2.13.9"

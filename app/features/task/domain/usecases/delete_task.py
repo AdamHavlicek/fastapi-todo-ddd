@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import cast
+from typing import cast, Tuple
 
 from app.core.error.task_exception import TaskNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
@@ -12,7 +12,7 @@ class DeleteTaskUseCase(BaseUseCase):
     unit_of_work: TaskUnitOfWork
 
     @abstractmethod
-    def __call__(self, id_: int) -> TaskReadModel | None:
+    def __call__(self, args: Tuple[int]) -> TaskReadModel:
         raise NotImplementedError()
 
 
@@ -21,7 +21,9 @@ class DeleteTaskUseCaseImpl(DeleteTaskUseCase):
     def __init__(self, unit_of_work: TaskUnitOfWork):
         self.unit_of_work: TaskUnitOfWork = unit_of_work
 
-    def __call__(self, id_: int) -> TaskReadModel | None:
+    def __call__(self, args: Tuple[int]) -> TaskReadModel:
+        id_, = args
+
         try:
             existing_user = self.unit_of_work.repository.find_by_id(id_)
 

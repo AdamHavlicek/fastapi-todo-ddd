@@ -23,7 +23,7 @@ def get_tasks(
     get_tasks_use_case_: GetTasksUseCase = Depends(get_tasks_use_case)
 ):
     try:
-        tasks = get_tasks_use_case_()
+        tasks = get_tasks_use_case_(None)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR

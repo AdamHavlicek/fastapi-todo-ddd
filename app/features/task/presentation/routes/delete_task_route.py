@@ -23,7 +23,7 @@ def delete_task(
     delete_task_use_case: DeleteTaskUseCase = Depends(get_delete_task_use_case)
 ):
     try:
-        task = delete_task_use_case(id_)
+        task = delete_task_use_case((id_, ))
     except TaskNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND

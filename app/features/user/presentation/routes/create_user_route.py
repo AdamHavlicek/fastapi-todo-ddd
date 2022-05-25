@@ -21,7 +21,7 @@ from app.features.user.presentation.schemas.user_error_message import ErrorMessa
 )
 def create_user(data: UserCreateModel, create_user_use_case: CreateUserUseCase = Depends(get_create_user_use_case)):
     try:
-        user = create_user_use_case(data)
+        user = create_user_use_case((data, ))
     except UserAlreadyExistsError as exception:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,

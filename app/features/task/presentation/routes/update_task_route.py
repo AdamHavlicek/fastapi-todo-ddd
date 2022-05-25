@@ -25,7 +25,7 @@ async def update_task(
     update_task_use_case: UpdateTaskUseCase = Depends(get_update_task_use_case)
 ):
     try:
-        user = update_task_use_case(id_, data)
+        user = update_task_use_case((id_, data))
     except TaskNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND

@@ -19,7 +19,7 @@ from app.features.user.presentation.schemas.user_error_message import ErrorMessa
 )
 def get_users(skip: int = 0, limit: int = 100, get_users_use_case_: GetUsersUseCase = Depends(get_users_use_case)):
     try:
-        users = get_users_use_case_()
+        users = get_users_use_case_(None)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR

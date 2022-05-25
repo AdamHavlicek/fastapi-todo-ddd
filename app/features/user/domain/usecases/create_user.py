@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import cast
+from typing import cast, Tuple
 
 from app.core.error.user_exception import UserAlreadyExistsError
 from app.core.use_cases.use_case import BaseUseCase
@@ -9,12 +9,12 @@ from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWork
 
 
-class CreateUserUseCase(BaseUseCase):
+class CreateUserUseCase(BaseUseCase[Tuple[UserCreateModel], UserReadModel]):
 
     unit_of_work: UserUnitOfWork
 
     @abstractmethod
-    def __call__(self, data: UserCreateModel) -> UserReadModel | None:
+    def __call__(self, args: Tuple[UserCreateModel]) -> UserReadModel:
         raise NotImplementedError()
 
 
@@ -23,7 +23,9 @@ class CreateUserUseCaseImpl(CreateUserUseCase):
     def __init__(self, unit_of_work: UserUnitOfWork):
         self.unit_of_work = unit_of_work
 
-    def __call__(self, data: UserCreateModel) -> UserReadModel | None:
+    def __call__(self, args: Tuple[UserCreateModel]) -> UserReadModel:
+        data, = args
+
         user = UserEntity(
             id_=-1,
             email=data.email,

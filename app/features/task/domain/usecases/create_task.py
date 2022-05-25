@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import Tuple
 
 from app.core.use_cases.use_case import BaseUseCase
 from app.features.task.domain.entities.task_command_model import TaskCreateModel
@@ -7,12 +8,12 @@ from app.features.task.domain.entities.task_query_model import TaskReadModel
 from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWork
 
 
-class CreateTaskUseCase(BaseUseCase):
+class CreateTaskUseCase(BaseUseCase[Tuple[TaskCreateModel], TaskReadModel]):
 
     unit_of_work: TaskUnitOfWork
 
     @abstractmethod
-    def __call__(self, data: TaskCreateModel) -> TaskReadModel | None:
+    def __call__(self, args: Tuple[TaskCreateModel]) -> TaskReadModel:
         raise NotImplementedError()
 
 
@@ -21,7 +22,9 @@ class CreateTaskUseCaseImpl(CreateTaskUseCase):
     def __init__(self, unit_of_work: TaskUnitOfWork):
         self.unit_of_work = unit_of_work
 
-    def __call__(self, data: TaskCreateModel) -> TaskReadModel | None:
+    def __call__(self, args: Tuple[TaskCreateModel]) -> TaskReadModel:
+        data, = args
+
         task = TaskEntity(
             id_=-1,
             title=data.title,

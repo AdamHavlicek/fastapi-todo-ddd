@@ -23,7 +23,7 @@ def get_task(
     get_task_use_case_: GetTaskUseCase = Depends(get_task_use_case)
 ):
     try:
-        task = get_task_use_case_(id_)
+        task = get_task_use_case_((id_, ))
     except TaskNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND

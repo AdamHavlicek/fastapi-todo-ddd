@@ -6,12 +6,12 @@ from app.features.user.domain.entities.user_query_model import UserReadModel
 from app.features.user.domain.services.user_query_service import UserQueryService
 
 
-class GetUsersUseCase(BaseUseCase):
+class GetUsersUseCase(BaseUseCase[None, Sequence[UserReadModel]]):
 
     service: UserQueryService
 
     @abstractmethod
-    def __call__(self) -> Sequence[UserReadModel]:
+    def __call__(self, args: None) -> Sequence[UserReadModel]:
         raise NotImplementedError()
 
 
@@ -20,7 +20,7 @@ class GetUsersUseCaseImpl(GetUsersUseCase):
     def __init__(self, service: UserQueryService):
         self.service: UserQueryService = service
 
-    def __call__(self) -> Sequence[UserReadModel]:
+    def __call__(self, args: None) -> Sequence[UserReadModel]:
         try:
             users = self.service.findall()
         except Exception:

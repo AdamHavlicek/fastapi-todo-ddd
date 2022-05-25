@@ -24,7 +24,7 @@ def get_user(
     get_user_use_case_: GetUserUseCase = Depends(get_user_use_case)
 ):
     try:
-        user = get_user_use_case_(id_)
+        user = get_user_use_case_((id_, ))
     except UserNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND
