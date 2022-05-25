@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ "$WAITFORDATABASE" = 'true' ]; then
+if [ "$WAIT_FOR_DB" = 1 ]; then
   echo "Waiting for database..."
 
   while ! nc -z "$SQL_HOST" "$SQL_PORT"; do

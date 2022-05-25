@@ -10,21 +10,23 @@ SQLAlchemy = '^1.4.36'
 pydantic = '^1.9.1'
 fastapi = '^0.78.0'
 psycopg2 = '^2.9.3'
-uvicorn = { extras = ['standard'], version = '^0.17.6'}
+uvicorn = { extras = ['standard'], version = '^0.17.6' }
 
 [tool.poetry.dev-dependencies]
-black = "^22.3.0"
+toml = "^0.10.2"
+yapf = {version = "^0.32.0" }
 mypy = "^0.950"
 pycodestyle = "^2.8.0"
 pytest = "^7.1.2"
 pylint = "^2.13.9"
-SQLAlchemy = {extras = ["mypy"], version = "^1.4.36"}
+SQLAlchemy = { extras = ["mypy"], version = "^1.4.36" }
+
+
+[tool.yapf]
+based_on_style = 'google'
+spaces_before_comment = 2
+split_before_logical_operator = true
 
 [build-system]
 requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"
-
-[tool.black]
-line-length = 120
-skip-string-normalization = true
-target-version = ['py310']

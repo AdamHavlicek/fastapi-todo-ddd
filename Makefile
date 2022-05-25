@@ -1,7 +1,7 @@
 POETRY=poetry
 PYTEST=$(POETRY) run pytest
 MYPY=$(POETRY) run mypy
-BLACK=$(POETRY) run black
+YAPF=$(POETRY) run yapf
 ISORT=$(POETRY) run isort
 PYLINT=$(POETRY) run pylint
 UVICORN=$(POETRY) run uvicorn
@@ -16,7 +16,7 @@ update:
 	$(POETRY_EXPORT)
 
 test: install
-	$(MYPY) ./${PACKAGE}/
+	$(MYPY) ./${PACKAGE}/ --ignore-missing-imports
 	$(PYTEST) -vv
 
 fmt:

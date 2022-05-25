@@ -43,11 +43,16 @@ services:
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       POETRY_CACHE_DIR: '/tmp/'
+      WAIT_FOR_DB: 1
 
     ports:
       - '${PORT}:80'
 
     volumes:
       - ./app:/opt/project/app
+      - ./Makefile:/opt/project/Makefile
+      - ./pyproject.toml:/opt/project/pyproject.toml
+      - ./poetry.lock:/opt/project/poetry.lock
+      - ./setup.cfg:/opt/project/setup.cfg
 
     command: "uvicorn app.main:app --host 0.0.0.0 --port 80"
