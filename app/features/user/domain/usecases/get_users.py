@@ -10,15 +10,15 @@ class GetUsersUseCase(BaseUseCase):
 
     service: UserQueryService
 
-    def __init__(self, service: UserQueryService):
-        self.service: UserQueryService = service
-
     @abstractmethod
     def __call__(self) -> Sequence[UserReadModel]:
         raise NotImplementedError()
 
 
 class GetUsersUseCaseImpl(GetUsersUseCase):
+
+    def __init__(self, service: UserQueryService):
+        self.service: UserQueryService = service
 
     def __call__(self) -> Sequence[UserReadModel]:
         try:

@@ -14,9 +14,6 @@ class DeleteUserUseCase(BaseUseCase):
     """
     unit_of_work: UserUnitOfWork
 
-    def __init__(self, unit_of_work: UserUnitOfWork):
-        self.unit_of_work: UserUnitOfWork = unit_of_work
-
     @abstractmethod
     def __call__(self, id_: int) -> UserReadModel | None:
         raise NotImplementedError()
@@ -26,6 +23,9 @@ class DeleteUserUseCaseImpl(DeleteUserUseCase):
     """
         UserCommandUseCaseImpl implements a command use cases related to the User entity
     """
+
+    def __init__(self, unit_of_work: UserUnitOfWork):
+        self.unit_of_work: UserUnitOfWork = unit_of_work
 
     def __call__(self, id_: int) -> UserReadModel | None:
         try:

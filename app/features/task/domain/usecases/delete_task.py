@@ -11,15 +11,15 @@ from app.features.task.domain.repositories.task_unit_of_work import TaskUnitOfWo
 class DeleteTaskUseCase(BaseUseCase):
     unit_of_work: TaskUnitOfWork
 
-    def __init__(self, unit_of_work: TaskUnitOfWork):
-        self.unit_of_work: TaskUnitOfWork = unit_of_work
-
     @abstractmethod
     def __call__(self, id_: int) -> TaskReadModel | None:
         raise NotImplementedError()
 
 
 class DeleteTaskUseCaseImpl(DeleteTaskUseCase):
+
+    def __init__(self, unit_of_work: TaskUnitOfWork):
+        self.unit_of_work: TaskUnitOfWork = unit_of_work
 
     def __call__(self, id_: int) -> TaskReadModel | None:
         try:

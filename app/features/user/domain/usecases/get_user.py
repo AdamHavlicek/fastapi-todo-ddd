@@ -13,9 +13,6 @@ class GetUserUseCase(BaseUseCase):
 
     service: UserQueryService
 
-    def __init__(self, service: UserQueryService):
-        self.service: UserQueryService = service
-
     @abstractmethod
     def __call__(self, id_: int) -> UserReadModel | None:
         raise NotImplementedError()
@@ -26,7 +23,13 @@ class GetUserUseCaseImpl(GetUserUseCase):
         GetUserUseCaseImpl implements a query use cases related to User entity
     """
 
+    def __init__(self, service: UserQueryService):
+        self.service: UserQueryService = service
+
     def __call__(self, id_: int) -> UserReadModel | None:
+        if not isinstance(id_, int):
+            raise ValueError()
+
         try:
             user = self.service.find_by_id(id_)
             if user is None:

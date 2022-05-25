@@ -10,15 +10,15 @@ class GetTasksUseCase(BaseUseCase):
 
     service: TaskQueryService
 
-    def __init__(self, service: TaskQueryService):
-        self.service: TaskQueryService = service
-
     @abstractmethod
     def __call__(self) -> Sequence[TaskReadModel]:
         raise NotImplementedError()
 
 
 class GetTasksUseCaseImpl(GetTasksUseCase):
+
+    def __init__(self, service: TaskQueryService):
+        self.service: TaskQueryService = service
 
     def __call__(self) -> Sequence[TaskReadModel]:
         try:

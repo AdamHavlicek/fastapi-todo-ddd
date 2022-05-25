@@ -10,11 +10,7 @@ from app.features.user.domain.repositories.user_unit_of_work import UserUnitOfWo
 
 
 class UpdateUserUseCase(BaseUseCase):
-
     unit_of_work: UserUnitOfWork
-
-    def __init__(self, unit_of_work: UserUnitOfWork):
-        self.unit_of_work = unit_of_work
 
     @abstractmethod
     def __call__(self, id_: int, data: UserUpdateModel) -> UserReadModel | None:
@@ -22,6 +18,9 @@ class UpdateUserUseCase(BaseUseCase):
 
 
 class UpdateUserUseCaseImpl(UpdateUserUseCase):
+
+    def __init__(self, unit_of_work: UserUnitOfWork):
+        self.unit_of_work = unit_of_work
 
     def __call__(self, id_: int, data: UserUpdateModel) -> UserReadModel | None:
         existing_user = self.unit_of_work.repository.find_by_id(id_)

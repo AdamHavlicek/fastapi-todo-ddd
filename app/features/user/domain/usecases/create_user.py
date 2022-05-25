@@ -13,15 +13,15 @@ class CreateUserUseCase(BaseUseCase):
 
     unit_of_work: UserUnitOfWork
 
-    def __init__(self, unit_of_work: UserUnitOfWork):
-        self.unit_of_work = unit_of_work
-
     @abstractmethod
     def __call__(self, data: UserCreateModel) -> UserReadModel | None:
         raise NotImplementedError()
 
 
 class CreateUserUseCaseImpl(CreateUserUseCase):
+
+    def __init__(self, unit_of_work: UserUnitOfWork):
+        self.unit_of_work = unit_of_work
 
     def __call__(self, data: UserCreateModel) -> UserReadModel | None:
         user = UserEntity(

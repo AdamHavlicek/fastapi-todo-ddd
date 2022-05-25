@@ -13,15 +13,15 @@ class UpdateTaskUseCase(BaseUseCase):
 
     unit_of_work: TaskUnitOfWork
 
-    def __init__(self, unit_of_work: TaskUnitOfWork):
-        self.unit_of_work = unit_of_work
-
     @abstractmethod
     def __call__(self, id_: int, data: TaskUpdateModel) -> TaskReadModel | None:
         raise NotImplementedError()
 
 
 class UpdateTaskUseCaseImpl(UpdateTaskUseCase):
+
+    def __init__(self, unit_of_work: TaskUnitOfWork):
+        self.unit_of_work = unit_of_work
 
     def __call__(self, id_: int, data: TaskUpdateModel) -> TaskReadModel | None:
         existing_task = self.unit_of_work.repository.find_by_id(id_)

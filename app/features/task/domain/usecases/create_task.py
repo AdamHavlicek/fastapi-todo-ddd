@@ -11,15 +11,15 @@ class CreateTaskUseCase(BaseUseCase):
 
     unit_of_work: TaskUnitOfWork
 
-    def __init__(self, unit_of_work: TaskUnitOfWork):
-        self.unit_of_work = unit_of_work
-
     @abstractmethod
     def __call__(self, data: TaskCreateModel) -> TaskReadModel | None:
         raise NotImplementedError()
 
 
 class CreateTaskUseCaseImpl(CreateTaskUseCase):
+
+    def __init__(self, unit_of_work: TaskUnitOfWork):
+        self.unit_of_work = unit_of_work
 
     def __call__(self, data: TaskCreateModel) -> TaskReadModel | None:
         task = TaskEntity(
