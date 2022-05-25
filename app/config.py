@@ -12,5 +12,3 @@ class Settings(BaseSettings):
     db_port: int
     db_pass: str
     db_name: str
-
-
