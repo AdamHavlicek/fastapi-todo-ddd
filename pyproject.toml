@@ -22,3 +22,8 @@ SQLAlchemy = {extras = ["mypy"], version = "^1.4.36"}
 [build-system]
 requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py310']
