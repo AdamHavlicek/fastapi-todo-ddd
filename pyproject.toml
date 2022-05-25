@@ -15,6 +15,7 @@ uvicorn = { extras = ['standard'], version = '^0.17.6'}
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
 mypy = "^0.950"
+pycodestyle = "^2.8.0"
 pytest = "^7.1.2"
 pylint = "^2.13.9"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.36"}
