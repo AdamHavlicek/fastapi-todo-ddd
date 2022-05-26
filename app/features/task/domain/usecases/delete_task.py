@@ -24,16 +24,16 @@ class DeleteTaskUseCaseImpl(DeleteTaskUseCase):
     def __call__(self, args: Tuple[int]) -> TaskReadModel:
         id_, = args
 
+        existing_user = self.unit_of_work.repository.find_by_id(id_)
+
+        if existing_user is None:
+            raise TaskNotFoundError()
+
+        marked_task = existing_user.mark_entity_as_deleted()
+
         try:
-            existing_user = self.unit_of_work.repository.find_by_id(id_)
-
-            if existing_user is None:
-                raise TaskNotFoundError()
-
-            deleted_user = self.unit_of_work.repository.delete_by_id(id_)
-
+            deleted_user = self.unit_of_work.repository.update(marked_task)
             self.unit_of_work.commit()
-
         except Exception:
             self.unit_of_work.rollback()
             raise

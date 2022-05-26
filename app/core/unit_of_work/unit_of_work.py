@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-T = TypeVar('T')
+_T = TypeVar('_T')
 
 
-class AbstractUnitOfWork(ABC, Generic[T]):
+class AbstractUnitOfWork(ABC, Generic[_T]):
 
-    repository: T
+    repository: _T
 
     @abstractmethod
     def begin(self):

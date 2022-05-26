@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import cast, Tuple
+from typing import cast, Tuple, Optional
 
 from app.core.error.user_exception import UserNotFoundError
 from app.core.use_cases.use_case import BaseUseCase
@@ -23,24 +23,23 @@ class UpdateUserUseCaseImpl(UpdateUserUseCase):
         self.unit_of_work = unit_of_work
 
     def __call__(self, args: Tuple[int, UserUpdateModel]) -> UserReadModel:
-        id_, data = args
+        id_, update_data = args
 
-        existing_user = self.unit_of_work.repository.find_by_id(id_)
+        existing_user: Optional[UserEntity] = self.unit_of_work.repository.find_by_id(id_)
 
         if existing_user is None:
             raise UserNotFoundError()
 
-        user = UserEntity(
-            **dict(existing_user),
-            **dict(data)
+        update_entity = existing_user.update_entity(
+            update_data,
+            lambda user_data: update_data.dict(exclude_unset=True)
         )
 
         try:
-            updated_user = self.unit_of_work.repository.update(user)
+            updated_user = self.unit_of_work.repository.update(update_entity)
+            self.unit_of_work.commit()
         except Exception:
             self.unit_of_work.rollback()
             raise
-
-        self.unit_of_work.commit()
 
         return UserReadModel.from_entity(cast(UserEntity, updated_user))

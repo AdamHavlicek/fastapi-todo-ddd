@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar
 
-T = TypeVar('T')
-R = TypeVar('R')
+_T = TypeVar('_T')
+_R = TypeVar('_R')
 
 
-class BaseUseCase(ABC, Generic[T, R]):
+class BaseUseCase(ABC, Generic[_T, _R]):
 
     @abstractmethod
-    def __call__(self, args: T) -> R:
+    def __call__(self, args: _T) -> _R:
         raise NotImplementedError()

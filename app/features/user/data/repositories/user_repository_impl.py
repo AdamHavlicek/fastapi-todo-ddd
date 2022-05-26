@@ -1,6 +1,6 @@
-from typing import Sequence
+from typing import Sequence, NoReturn
 
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
@@ -46,7 +46,7 @@ class UserRepositoryImpl(UserRepository):
         return [user.to_entity() for user in result]
 
     def find_by_id(self, id_: int) -> UserEntity | None:
-        result = self.session.get(User, id_)
+        result: User | None = self.session.get(User, id_)
 
         if result is None:
             return None
@@ -55,14 +55,35 @@ class UserRepositoryImpl(UserRepository):
 
     def update(self, entity: UserEntity) -> UserEntity | None:
         user = User.from_entity(entity)
+        update_data = user.to_dict()
+        map(
+            lambda key: update_data.pop(key),
+            [User.updated_at.key, User.created_at.key]
+        )
 
-        result = self.session.get(User, user.id_)
+        statement = update(
+            User
+        ).filter_by(
+            id_=user.id_
+        ).values(
+            update_data
+        ).returning(
+            *user.__table__.columns
+        )
 
-        # TODO: update user
+        result: User = self.session.execute(statement).scalar_one()
+
+        return result.to_entity()
 
     def delete_by_id(self, id_: int) -> UserEntity | None:
-        result = self.session.get(User, id_)
+        statement = delete(
+            User
+        ).filter_by(
+            id_=id_
+        ).returning(
+            *User.__table__.columns
+        )
 
-        if result is None:
-            return None
-        # TODO: set is_deleted and persist
+        result: User = self.session.execute(statement).scalar_one()
+
+        return result.to_entity()

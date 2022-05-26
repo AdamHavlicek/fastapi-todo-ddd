@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
@@ -43,7 +43,7 @@ class TaskRepositoryImpl(TaskRepository):
         return [task.to_entity() for task in result]
 
     def find_by_id(self, id_: int) -> TaskEntity | None:
-        result = self.session.get(Task, id_)
+        result: Task | None = self.session.get(Task, id_)
 
         if result is None:
             return None
@@ -52,22 +52,35 @@ class TaskRepositoryImpl(TaskRepository):
 
     def update(self, entity: TaskEntity) -> TaskEntity | None:
         task = Task.from_entity(entity)
+        update_data = task.to_dict()
+        map(
+            lambda key: update_data.pop(key),
+            [Task.updated_at.key, Task.created_at.key]
+        )
 
-        try:
-            result = self.session.get(Task, task.id_)
-        except NoResultFound:
-            return None
+        statement = update(
+            Task
+        ).filter_by(
+            id_=task.id_
+        ).values(
+            update_data
+        ).returning(
+            *Task.__table__.columns
+        )
 
-        raise NotImplementedError()
+        result: Task = self.session.execute(statement).scalar_one()
 
-        # TODO: update user
+        return result.to_entity()
 
     def delete_by_id(self, id_: int) -> TaskEntity | None:
-        try:
-            result = self.session.get(Task, id_)
-        except NoResultFound:
-            return None
+        statement = delete(
+            Task
+        ).filter_by(
+            id_=id_
+        ).returning(
+            *Task.__table__.columns
+        )
 
-        raise NotImplementedError()
+        result: Task = self.session.execute(statement).scalar_one()
 
-        # TODO: set is_deleted and persist
+        return result.to_entity()

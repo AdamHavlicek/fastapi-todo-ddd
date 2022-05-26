@@ -26,7 +26,7 @@ class UserQueryServiceImpl(UserQueryService):
 
     def findall(self) -> Sequence[UserReadModel]:
         # TODO: add offset and limit
-        statement = select(User)
+        statement = select(User).filter_by(is_deleted=False)
 
         result = self.session.execute(statement).scalars().all()
 

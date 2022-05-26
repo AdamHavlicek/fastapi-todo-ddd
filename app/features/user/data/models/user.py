@@ -35,6 +35,18 @@ class User(Base):
             tasks=[task.id_ for task in self.tasks]
         )
 
+    def to_dict(self):
+        return {
+            'id_': self.id_,
+            'email': self.email,
+            'password': self.password,
+            'is_active': self.is_active,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'is_deleted': self.is_deleted,
+        }
+
+
     def to_read_model(self) -> UserReadModel:
         return UserReadModel(
             id_=self.id_,
@@ -50,6 +62,7 @@ class User(Base):
     @staticmethod
     def from_entity(user: UserEntity) -> 'User':
         return User(
+            id_=user.id_,
             email=user.email,
             password=user.password,
             is_active=user.is_active,

@@ -24,23 +24,23 @@ class UpdateTaskUseCaseImpl(UpdateTaskUseCase):
         self.unit_of_work = unit_of_work
 
     def __call__(self, args: Tuple[int, TaskUpdateModel]) -> TaskReadModel:
-        id_, data = args
+        id_, update_data = args
         existing_task = self.unit_of_work.repository.find_by_id(id_)
 
         if existing_task is None:
             raise TaskNotFoundError()
 
-        task = TaskEntity(
-            **dict(existing_task),
-            **dict(data)
+        update_entity = existing_task.update_entity(
+            update_data,
+            lambda task_data: task_data.dict(exclude_unset=True)
         )
 
         try:
-            updated_task = self.unit_of_work.repository.update(task)
+            updated_task = self.unit_of_work.repository.update(update_entity)
+            self.unit_of_work.commit()
         except Exception:
             self.unit_of_work.rollback()
             raise
 
-        self.unit_of_work.commit()
 
         return TaskReadModel.from_entity(cast(TaskEntity, updated_task))

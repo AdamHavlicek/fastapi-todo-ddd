@@ -9,7 +9,7 @@ from app.features.user.presentation.routes import router
 from app.features.user.presentation.schemas.user_error_message import ErrorMessageUserNotFound
 
 
-@router.put(
+@router.patch(
     '/{id_}/',
     response_model=UserReadModel,
     status_code=status.HTTP_200_OK,

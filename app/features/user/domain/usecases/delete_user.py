@@ -29,17 +29,17 @@ class DeleteUserUseCaseImpl(DeleteUserUseCase):
 
     def __call__(self, args: Tuple[int]) -> UserReadModel:
         id_, = args
+        existing_user = self.unit_of_work.repository.find_by_id(id_)
+
+        if existing_user is None:
+            raise UserNotFoundError()
+
+        marked_user = existing_user.mark_entity_as_deleted()
+
         try:
-            existing_user = self.unit_of_work.repository.find_by_id(id_)
-
-            if existing_user is None:
-                raise UserNotFoundError()
-
-            deleted_user = self.unit_of_work.repository.delete_by_id(id_)
-
+            deleted_user = self.unit_of_work.repository.update(marked_user)
             self.unit_of_work.commit()
-
-        except Exception:
+        except Exception as e:
             self.unit_of_work.rollback()
             raise
 
