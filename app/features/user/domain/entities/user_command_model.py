@@ -1,4 +1,4 @@
-from pydantic import Field
+from pydantic import Field, BaseModel
 
 from app.features.user.domain.entities.user_common_model import UserBaseModel
 
@@ -10,11 +10,12 @@ class UserCreateModel(UserBaseModel):
     password: str = Field(example='password')
 
 
-class UserUpdateModel(UserBaseModel):
+class UserUpdateModel(BaseModel):
     """
         UserUpdateModel represents a write model to update a user
     """
 
-    password: str = Field(example='password')
-    is_active: bool = Field(example=True)
-    is_deleted: bool = Field(example=True)
+    email: str | None
+    password: str | None = Field(example='password')
+    is_active: bool | None = Field(example=True)
+    is_deleted: bool | None = Field(example=True)

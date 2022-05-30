@@ -24,7 +24,7 @@ class TaskRepositoryImpl(TaskRepository):
 
         return [task.to_entity() for task in result]
 
-    def create(self, entity: TaskEntity) -> TaskEntity | None:
+    def create(self, entity: TaskEntity) -> TaskEntity:
         task = Task.from_entity(entity)
 
         self.session.add(task)
@@ -50,13 +50,12 @@ class TaskRepositoryImpl(TaskRepository):
 
         return result.to_entity()
 
-    def update(self, entity: TaskEntity) -> TaskEntity | None:
+    def update(self, entity: TaskEntity) -> TaskEntity:
         task = Task.from_entity(entity)
         update_data = task.to_dict()
-        map(
-            lambda key: update_data.pop(key),
-            [Task.updated_at.key, Task.created_at.key]
-        )
+
+        for key in [Task.updated_at.key, Task.created_at.key, Task.updated_at.key]:
+            update_data.pop(key)
 
         statement = update(
             Task
@@ -65,14 +64,15 @@ class TaskRepositoryImpl(TaskRepository):
         ).values(
             update_data
         ).returning(
-            *Task.__table__.columns
+            Task
         )
 
-        result: Task = self.session.execute(statement).scalar_one()
+        task_mapping = self.session.execute(statement).mappings().one()
+        result = Task(**task_mapping)
 
-        return result.to_entity()
+        return task.to_entity()
 
-    def delete_by_id(self, id_: int) -> TaskEntity | None:
+    def delete_by_id(self, id_: int) -> TaskEntity:
         statement = delete(
             Task
         ).filter_by(

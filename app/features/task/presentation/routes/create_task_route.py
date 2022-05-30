@@ -1,4 +1,4 @@
-from fastapi import status, Depends, HTTPException
+from fastapi import status, Depends, HTTPException, Response, Request
 
 from app.features.task.dependencies import get_create_task_use_case
 from app.features.task.domain.entities.task_command_model import TaskCreateModel
@@ -14,6 +14,8 @@ from app.features.task.presentation.routes import router
 )
 def create_task(
     data: TaskCreateModel,
+    response: Response,
+    request: Request,
     create_task_use_case: CreateTaskUseCase = Depends(get_create_task_use_case)
 ):
     try:
@@ -23,4 +25,5 @@ def create_task(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+    response.headers['location'] = f"{request.url.path}{task.id_}"
     return task

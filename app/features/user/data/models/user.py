@@ -46,7 +46,6 @@ class User(Base):
             'is_deleted': self.is_deleted,
         }
 
-
     def to_read_model(self) -> UserReadModel:
         return UserReadModel(
             id_=self.id_,

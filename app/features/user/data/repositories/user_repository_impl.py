@@ -1,4 +1,4 @@
-from typing import Sequence, NoReturn
+from typing import Sequence
 
 from sqlalchemy import select, update, delete
 from sqlalchemy.exc import NoResultFound
@@ -27,7 +27,7 @@ class UserRepositoryImpl(UserRepository):
 
         return result.to_entity()
 
-    def create(self, entity: UserEntity) -> UserEntity | None:
+    def create(self, entity: UserEntity) -> UserEntity:
         user = User.from_entity(entity)
 
         self.session.add(user)
@@ -53,29 +53,29 @@ class UserRepositoryImpl(UserRepository):
 
         return result.to_entity()
 
-    def update(self, entity: UserEntity) -> UserEntity | None:
+    def update(self, entity: UserEntity) -> UserEntity:
         user = User.from_entity(entity)
         update_data = user.to_dict()
-        map(
-            lambda key: update_data.pop(key),
-            [User.updated_at.key, User.created_at.key]
-        )
+
+        for key in [User.updated_at.key, User.created_at.key, User.id_.key]:
+            update_data.pop(key),
 
         statement = update(
             User
-        ).filter_by(
-            id_=user.id_
+        ).where(
+            User.id_ == user.id_
         ).values(
             update_data
         ).returning(
-            *user.__table__.columns
+            User
         )
 
-        result: User = self.session.execute(statement).scalar_one()
+        user_mapping = self.session.execute(statement).mappings().one()
+        result = User(**user_mapping)
 
         return result.to_entity()
 
-    def delete_by_id(self, id_: int) -> UserEntity | None:
+    def delete_by_id(self, id_: int) -> UserEntity:
         statement = delete(
             User
         ).filter_by(

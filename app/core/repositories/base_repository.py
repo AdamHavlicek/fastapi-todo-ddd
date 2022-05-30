@@ -10,7 +10,7 @@ class BaseRepository(ABC, Generic[_T]):
     """
 
     @abstractmethod
-    def create(self, entity: _T) -> _T | None:
+    def create(self, entity: _T) -> _T:
         raise NotImplementedError()
 
     @abstractmethod
@@ -22,9 +22,9 @@ class BaseRepository(ABC, Generic[_T]):
         raise NotImplementedError()
 
     @abstractmethod
-    def update(self, entity: _T) -> _T | None:
+    def update(self, entity: _T) -> _T:
         raise NotImplementedError()
 
     @abstractmethod
-    def delete_by_id(self, id_: int) -> _T | None:
+    def delete_by_id(self, id_: int) -> _T:
         raise NotImplementedError()

@@ -38,7 +38,7 @@ class UpdateUserUseCaseImpl(UpdateUserUseCase):
         try:
             updated_user = self.unit_of_work.repository.update(update_entity)
             self.unit_of_work.commit()
-        except Exception:
+        except Exception as e:
             self.unit_of_work.rollback()
             raise
 

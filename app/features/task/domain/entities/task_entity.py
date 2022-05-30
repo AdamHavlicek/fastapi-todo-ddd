@@ -54,7 +54,7 @@ class TaskEntity(object):
         if self.is_deleted:
             raise InvalidOperationError('Task is already marked as deleted')
 
-        delete_entity = copy.deepcopy(self)
-        delete_entity.is_deleted = True
+        marked_entity = copy.deepcopy(self)
+        marked_entity.is_deleted = True
 
-        return delete_entity
+        return marked_entity
