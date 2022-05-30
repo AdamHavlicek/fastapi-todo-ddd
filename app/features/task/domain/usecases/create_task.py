@@ -26,10 +26,9 @@ class CreateTaskUseCaseImpl(CreateTaskUseCase):
         data, = args
 
         task = TaskEntity(
-            id_=-1,
+            id_=None,
             **data.dict()
         )
-        del task.id_
 
         try:
             self.unit_of_work.repository.create(task)

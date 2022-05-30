@@ -27,10 +27,9 @@ class CreateUserUseCaseImpl(CreateUserUseCase):
         data, = args
 
         user = UserEntity(
-            id_=-1,
+            id_=None,
             **data.dict()
         )
-        del user.id_
 
         existing_user = self.unit_of_work.repository.find_by_email(data.email)
         if existing_user is not None:

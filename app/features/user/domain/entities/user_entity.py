@@ -15,7 +15,7 @@ class UserEntity(object):
 
     def __init__(
         self,
-        id_: int,
+        id_: int | None,
         email: str,
         password: str,
         is_active: bool | None = True,

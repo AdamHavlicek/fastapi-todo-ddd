@@ -15,7 +15,7 @@ class TaskEntity(object):
 
     def __init__(
         self,
-        id_: int,
+        id_: int | None,
         title: str,
         owner_id: int,
         is_completed: bool | None = False,
